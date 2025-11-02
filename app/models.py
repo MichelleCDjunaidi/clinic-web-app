@@ -3,6 +3,8 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from app.database import Base
 
+# for our database.
+
 # todo: implement doctor login when able
 # otherwise start with default doctor
 class Doctor(Base):
