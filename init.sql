@@ -136,3 +136,8 @@ INSERT INTO diagnosis_codes (code, description) VALUES
 CREATE INDEX idx_diagnosis_code ON diagnosis_codes(code);
 CREATE INDEX idx_diagnosis_description ON diagnosis_codes(description);
 CREATE INDEX idx_consultation_date ON consultations(consultation_date);
+CREATE INDEX idx_doctor_email ON doctors(email);
+
+-- a default doctor (this is bcrypt of password: "password123")
+INSERT INTO doctors (email, full_name, hashed_password) VALUES
+('doctor@example.com', 'Dr. John Enak', '$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5gy3qjkEQVgZS');
