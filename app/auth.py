@@ -3,9 +3,11 @@ from typing import Optional
 from jose import JWTError, jwt
 from passlib.context import CryptContext
 from hashlib import sha256
+import os
 
-# Secret key for JWT - since this is not prod it's fine anyways. todo if prod: move to env
-SECRET_KEY = "29a8ba227fb4af3f11f0274ec73b9bd8"
+# Secret key for JWT
+# since this is just an assessment, the env is shared
+SECRET_KEY = os.getenv("SECRET_KEY", "29a8ba227fb4af3f11f0274ec73b9bd8")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 100
 
