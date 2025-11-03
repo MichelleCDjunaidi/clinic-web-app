@@ -138,4 +138,4 @@ CREATE INDEX idx_doctor_email ON doctors(email);
 
 -- this is actually password123
 INSERT INTO doctors (email, full_name, hashed_password) VALUES
-('doctor@example.com', 'Dr. John Enak', '$2b$12$fBcJwa157RQBHorbQe4uwOKHulQgrnQP41VujUu.Es3ueT6el7nIm');
+('doctor@example.com', 'John Enak', '$2b$12$fBcJwa157RQBHorbQe4uwOKHulQgrnQP41VujUu.Es3ueT6el7nIm');

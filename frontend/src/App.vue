@@ -10,7 +10,7 @@
           <router-link to="/consultations/new" class="nav-link"
             >New Consultation</router-link
           >
-          <span class="doctor-name">Dr. {{ doctorName }}</span>
+          <span class="doctor-name">{{ doctorName }}</span>
           <button @click="handleLogout" class="logout-btn">Logout</button>
         </div>
       </div>

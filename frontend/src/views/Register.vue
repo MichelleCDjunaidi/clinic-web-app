@@ -1,10 +1,22 @@
 <template>
   <div class="login-container">
     <div class="login-card">
-      <h2 class="login-title">Medical Consultation System</h2>
-      <p class="login-subtitle">Doctor Login</p>
+      <h2 class="login-title">Create an Account</h2>
+      <p class="login-subtitle">Register as a Doctor</p>
 
-      <form @submit.prevent="handleLogin" class="login-form">
+      <form @submit.prevent="handleRegister" class="login-form">
+        <div class="form-group">
+          <label for="full_name">Full Name</label>
+          <input
+            id="full_name"
+            v-model="full_name"
+            type="text"
+            required
+            placeholder="John Smith"
+            class="form-input"
+          />
+        </div>
+
         <div class="form-group">
           <label for="email">Email</label>
           <input
@@ -29,23 +41,15 @@
           />
         </div>
 
-        <div v-if="error" class="error-message">
-          {{ error }}
-        </div>
+        <div v-if="error" class="error-message">{{ error }}</div>
 
         <button type="submit" :disabled="loading" class="login-btn">
-          {{ loading ? "Logging in..." : "Login" }}
+          {{ loading ? "Registering..." : "Register" }}
         </button>
       </form>
 
       <div class="demo-credentials">
-        <p><strong>Demo Credentials:</strong></p>
-        <p>Email: doctor@example.com</p>
-        <p>Password: password123</p>
-      </div>
-
-      <div class="demo-credentials">
-        <p>Don't have an account? <router-link to="/register">Register here</router-link>.</p>
+        <p>Already have an account? <router-link to="/login">Login here</router-link>.</p>
       </div>
     </div>
   </div>
@@ -55,49 +59,47 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import api from "../api/api";
-import { useAuth } from "../composables/useAuth";
 
 export default {
-  name: "Login",
+  name: "Register",
   setup() {
     const router = useRouter();
-    const email = ref("doctor@example.com");
-    const password = ref("password123");
+    const full_name = ref("");
+    const email = ref("");
+    const password = ref("");
     const error = ref("");
     const loading = ref(false);
 
-    const { setToken, setDoctor } = useAuth()
+    const handleRegister = async () => {
+      error.value = "";
 
-    const handleLogin = async () => {
-    error.value = ""
-    loading.value = true
+      if (!email.value || !password.value || !full_name.value) {
+        error.value = "All fields are required";
+        return;
+      }
 
-    try {
-        const response = await api.login(email.value.trim(), password.value)
-        setToken(response.data.access_token)
+      loading.value = true;
 
-        // Optional: load doctor info
-        try {
-        const doctorResponse = await api.getCurrentDoctor()
-        setDoctor(doctorResponse.data)
-        } catch (err) {
-        console.error('Failed to load doctor info:', err)
-        }
-
-        router.push("/consultations")
-    } catch (err) {
-        error.value = err.response?.data?.detail || "Login failed"
-    } finally {
-        loading.value = false
-    }
+      try {
+        await api.register(email.value.trim(), password.value, full_name.value.trim());
+        alert("Account created successfully! Please log in.");
+        router.push("/login");
+      } catch (err) {
+        console.error(err);
+        error.value =
+          err.response?.data?.errors || "Registration failed. Please try again.";
+      } finally {
+        loading.value = false;
+      }
     };
 
     return {
+      full_name,
       email,
       password,
       error,
       loading,
-      handleLogin,
+      handleRegister,
     };
   },
 };
