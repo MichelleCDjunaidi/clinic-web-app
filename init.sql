@@ -138,7 +138,6 @@ CREATE INDEX idx_diagnosis_description ON diagnosis_codes(description);
 CREATE INDEX idx_consultation_date ON consultations(consultation_date);
 CREATE INDEX idx_doctor_email ON doctors(email);
 
--- a default doctor (this is bcrypt of password: "password123")
--- if we don't have time to do the optional, this will be used as default account
+-- this is actually password123
 INSERT INTO doctors (email, full_name, hashed_password) VALUES
-('doctor@example.com', 'Dr. John Enak', '$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5gy3qjkEQVgZS');
+('doctor@example.com', 'Dr. John Enak', '$2b$12$fBcJwa157RQBHorbQe4uwOKHulQgrnQP41VujUu.Es3ueT6el7nIm');
