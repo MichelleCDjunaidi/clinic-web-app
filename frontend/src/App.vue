@@ -1,5 +1,10 @@
 <template>
   <div id="app">
+    <div :class="['app-container', isAuthenticated ? '' : 'auth-bg']">
+      <div class="bg"></div>
+      <div class="bg bg2"></div>
+      <div class="bg bg3"></div>
+    </div>
     <nav v-if="isAuthenticated" class="navbar">
       <div class="nav-container">
         <h1 class="logo">Medical Consultation System</h1>
@@ -129,5 +134,35 @@ body {
   max-width: 1200px;
   margin: 2rem auto;
   padding: 0 2rem;
+}
+
+.auth-bg {
+  z-index: -1;
+}
+
+.auth-bg .bg {
+  animation: slide 3s ease-in-out infinite alternate;
+  background-image: linear-gradient(-40deg, rgb(222, 224, 92) 50%, rgb(56, 165, 238) 50%);
+  bottom: 0;
+  left: -50%;
+  opacity: 0.5;
+  position: fixed;
+  right: -50%;
+  top: 0;
+  z-index: -1;
+}
+
+.auth-bg .bg2 {
+  animation-direction: alternate-reverse;
+  animation-duration: 4s;
+}
+
+.auth-bg .bg3 {
+  animation-duration: 5s;
+}
+
+@keyframes slide {
+  0% { transform: translateX(-25%); }
+  100% { transform: translateX(25%); }
 }
 </style>

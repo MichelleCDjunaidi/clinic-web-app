@@ -2,7 +2,7 @@
   <div class="login-container">
     <div class="login-card">
       <h2 class="login-title">Create an Account</h2>
-      <p class="login-subtitle">Register as a Doctor</p>
+      <p class="login-subtitle">Just a few more steps...</p>
 
       <form @submit.prevent="handleRegister" class="login-form">
         <div class="form-group">
@@ -12,7 +12,7 @@
             v-model="full_name"
             type="text"
             required
-            placeholder="John Smith"
+            placeholder="Your Name Here"
             class="form-input"
           />
         </div>
@@ -24,7 +24,7 @@
             v-model="email"
             type="email"
             required
-            placeholder="doctor@example.com"
+            placeholder="email@example.com"
             class="form-input"
           />
         </div>
@@ -107,7 +107,7 @@ export default {
 
 <style scoped>
 .login-container {
-  /* min-height: 100vh; */
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -175,7 +175,7 @@ export default {
 }
 
 .login-btn {
-  background: #a5d468;
+  background: #53a33a;
   color: white;
   border: none;
   padding: 0.875rem;

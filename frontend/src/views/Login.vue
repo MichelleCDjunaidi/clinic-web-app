@@ -1,8 +1,8 @@
 <template>
   <div class="login-container">
     <div class="login-card">
-      <h2 class="login-title">Medical Consultation System</h2>
-      <p class="login-subtitle">Doctor Login</p>
+      <h2 class="login-title">ClinicCare Records System</h2>
+      <p class="login-subtitle">Welcome back!</p>
 
       <form @submit.prevent="handleLogin" class="login-form">
         <div class="form-group">
@@ -61,8 +61,8 @@ export default {
   name: "Login",
   setup() {
     const router = useRouter();
-    const email = ref("doctor@example.com");
-    const password = ref("password123");
+    const email = ref("");
+    const password = ref("");
     const error = ref("");
     const loading = ref(false);
 
@@ -105,7 +105,7 @@ export default {
 
 <style scoped>
 .login-container {
-  /* min-height: 100vh; */
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -173,7 +173,7 @@ export default {
 }
 
 .login-btn {
-  background: #a5d468;
+  background: #53a33a;
   color: white;
   border: none;
   padding: 0.875rem;
