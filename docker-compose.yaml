@@ -39,6 +39,19 @@ services:
       - ./app:/app/app
     restart: unless-stopped
 
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: clinic_frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - clinic-network
+    restart: unless-stopped
+
 volumes:
   postgres_data:
 
