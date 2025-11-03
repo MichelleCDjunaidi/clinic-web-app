@@ -36,7 +36,7 @@
             v-model="password"
             type="password"
             required
-            placeholder="Enter your password"
+            placeholder="min. 8 characters, 1 letter 1 number"
             class="form-input"
           />
         </div>

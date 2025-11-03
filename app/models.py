@@ -5,8 +5,6 @@ from app.database import Base
 
 # for our database.
 
-# todo: implement doctor login when able
-# otherwise start with default doctor
 class Doctor(Base):
     __tablename__ = "doctors"
     

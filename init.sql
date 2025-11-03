@@ -31,6 +31,7 @@ CREATE TABLE IF NOT EXISTS consultation_diagnoses (
 );
 
 -- Insert 100 ICD-10 codes (took only headers for simplicity)
+-- who knew 100 ICD-10 codes is not fully sequential?
 INSERT INTO diagnosis_codes (code, description) VALUES
 ('A00', 'Cholera'),
 ('A01', 'Typhoid and paratyphoid fevers'),
@@ -129,6 +130,8 @@ INSERT INTO diagnosis_codes (code, description) VALUES
 ('B08', 'Other viral infections characterized by skin lesions'),
 ('B09', 'Unspecified viral infection characterized by skin lesions'),
 ('B10', 'Other human herpesviruses'),
+('B15', 'Acute hepatitis A'),
+('B16', 'Acute hepatitis B');
 
 -- since most of the operations on these would be queries, it's okay for the insert to be slow
 CREATE INDEX idx_diagnosis_code ON diagnosis_codes(code);
