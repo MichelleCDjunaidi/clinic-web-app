@@ -34,6 +34,7 @@ const router = createRouter({
 })
 
 // Navigation guard
+// ensures that if no token, redirect back to front
 router.beforeEach((to, from, next) => {
   const token = localStorage.getItem('token')
   
