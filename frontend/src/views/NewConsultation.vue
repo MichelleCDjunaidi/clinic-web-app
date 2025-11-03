@@ -52,7 +52,7 @@
           v-model="searchTerm"
           @input="searchDiagnosis"
           type="text"
-          placeholder="Type to search ICD-10 codes..."
+          placeholder="Type at least two letters to search ICD-10 codes..."
           class="form-input"
         />
 
@@ -188,6 +188,7 @@ export default {
       // Validate consultation date
       const selectedDate = new Date(form.consultation_date);
       const today = new Date();
+      selectedDate.setHours(0, 0, 0, 0);
       today.setHours(0, 0, 0, 0);
       if (selectedDate > today) {
         error.value = "Consultation date cannot be in the future";
