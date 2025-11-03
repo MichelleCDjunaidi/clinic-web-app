@@ -7,7 +7,7 @@
     </div>
     <nav v-if="isAuthenticated" class="navbar">
       <div class="nav-container">
-        <h1 class="logo">Medical Consultation System</h1>
+        <h1 class="logo">ClinicCare Records System</h1>
         <div class="nav-links">
           <router-link to="/consultations" class="nav-link"
             >Consultations</router-link
@@ -116,7 +116,7 @@ body {
 }
 
 .logout-btn {
-  background: #e74c3c;
+  background: #c93f30;
   color: white;
   border: none;
   padding: 0.5rem 1rem;
