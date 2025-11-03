@@ -11,7 +11,7 @@
             >New Consultation</router-link
           >
           <span class="doctor-name">Dr. {{ doctorName }}</span>
-          <button @click="logout" class="logout-btn">Logout</button>
+          <button @click="handleLogout" class="logout-btn">Logout</button>
         </div>
       </div>
     </nav>
@@ -22,46 +22,27 @@
 </template>
 
 <script>
-import { ref, computed, onMounted } from "vue";
+import { computed } from "vue";
 import { useRouter } from "vue-router";
-import api from "./api/api";
+import { useAuth } from "./composables/useAuth";
 
 export default {
   name: "App",
   setup() {
     const router = useRouter();
-    const doctorName = ref("");
+    const { isAuthenticated, doctor, logout } = useAuth();
 
-    const isAuthenticated = computed(() => {
-      return !!localStorage.getItem("token");
-    });
+    const doctorName = computed(() => doctor.value?.full_name || "");
 
-    const loadDoctorInfo = async () => {
-      try {
-        const response = await api.getCurrentDoctor();
-        doctorName.value = response.data.full_name;
-        localStorage.setItem("doctor", JSON.stringify(response.data));
-      } catch (error) {
-        console.error("Failed to load doctor info:", error);
-      }
-    };
-
-    const logout = () => {
-      localStorage.removeItem("token");
-      localStorage.removeItem("doctor");
+    const handleLogout = () => {
+      logout();
       router.push("/login");
     };
-
-    onMounted(() => {
-      if (isAuthenticated.value) {
-        loadDoctorInfo();
-      }
-    });
 
     return {
       isAuthenticated,
       doctorName,
-      logout,
+      handleLogout,
     };
   },
 };

@@ -55,8 +55,9 @@
 </template>
 
 <script>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 import api from "../api/api";
+import { useAuth } from "../composables/useAuth";
 
 export default {
   name: "ConsultationList",
@@ -64,15 +65,23 @@ export default {
     const consultations = ref([]);
     const loading = ref(true);
     const error = ref("");
+    const { token, logout } = useAuth();
 
     const loadConsultations = async () => {
+      if (!token.value) return; // no token, skip call
       try {
         loading.value = true;
         const response = await api.getConsultations();
         consultations.value = response.data;
       } catch (err) {
-        error.value = "Failed to load consultations";
-        console.error(err);
+        if (err.response?.status === 401) {
+          // Token expired or invalid
+          logout();
+          error.value = "Session expired. Please log in again.";
+        } else {
+          error.value = "Failed to load consultations.";
+          console.error(err);
+        }
       } finally {
         loading.value = false;
       }
@@ -91,6 +100,12 @@ export default {
       loadConsultations();
     });
 
+    // Watch token changes (auto reload if user logs in again)
+    watch(token, (newVal) => {
+      if (newVal) loadConsultations();
+      else consultations.value = [];
+    });
+
     return {
       consultations,
       loading,
@@ -100,6 +115,7 @@ export default {
   },
 };
 </script>
+
 
 <style scoped>
 .consultation-list {

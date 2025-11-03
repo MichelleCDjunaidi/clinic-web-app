@@ -51,6 +51,7 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import api from "../api/api";
+import { useAuth } from "../composables/useAuth";
 
 export default {
   name: "Login",
@@ -61,45 +62,30 @@ export default {
     const error = ref("");
     const loading = ref(false);
 
+    const { setToken, setDoctor } = useAuth()
+
     const handleLogin = async () => {
-      error.value = "";
+    error.value = ""
+    loading.value = true
 
-      // Frontend validation
-      if (!email.value || !email.value.trim()) {
-        error.value = "Email is required";
-        return;
-      }
+    try {
+        const response = await api.login(email.value.trim(), password.value)
+        setToken(response.data.access_token)
 
-      if (!password.value) {
-        error.value = "Password is required";
-        return;
-      }
-
-      // Basic email format validation
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(email.value)) {
-        error.value = "Please enter a valid email address";
-        return;
-      }
-
-      loading.value = true;
-
-      try {
-        const response = await api.login(email.value.trim(), password.value);
-        localStorage.setItem("token", response.data.access_token);
-        router.push("/consultations");
-      } catch (err) {
-        if (err.response?.status === 401) {
-          error.value = "Incorrect email or password";
-        } else if (err.response?.status === 403) {
-          error.value = "Account is inactive. Please contact support.";
-        } else {
-          error.value =
-            err.response?.data?.detail || "Login failed. Please try again.";
+        // Optional: load doctor info
+        try {
+        const doctorResponse = await api.getCurrentDoctor()
+        setDoctor(doctorResponse.data)
+        } catch (err) {
+        console.error('Failed to load doctor info:', err)
         }
-      } finally {
-        loading.value = false;
-      }
+
+        router.push("/consultations")
+    } catch (err) {
+        error.value = err.response?.data?.detail || "Login failed"
+    } finally {
+        loading.value = false
+    }
     };
 
     return {

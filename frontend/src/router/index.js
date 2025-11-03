@@ -2,30 +2,13 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Login from '../views/Login.vue'
 import ConsultationList from '../views/ConsultationList.vue'
 import NewConsultation from '../views/NewConsultation.vue'
+import { useAuth } from '../composables/useAuth'
 
 const routes = [
-  {
-    path: '/',
-    redirect: '/consultations'
-  },
-  {
-    path: '/login',
-    name: 'Login',
-    component: Login,
-    meta: { requiresGuest: true }
-  },
-  {
-    path: '/consultations',
-    name: 'ConsultationList',
-    component: ConsultationList,
-    meta: { requiresAuth: true }
-  },
-  {
-    path: '/consultations/new',
-    name: 'NewConsultation',
-    component: NewConsultation,
-    meta: { requiresAuth: true }
-  }
+  { path: '/', redirect: '/consultations' },
+  { path: '/login', name: 'Login', component: Login, meta: { requiresGuest: true } },
+  { path: '/consultations', name: 'ConsultationList', component: ConsultationList, meta: { requiresAuth: true } },
+  { path: '/consultations/new', name: 'NewConsultation', component: NewConsultation, meta: { requiresAuth: true } }
 ]
 
 const router = createRouter({
@@ -33,14 +16,14 @@ const router = createRouter({
   routes
 })
 
-// Navigation guard
-// ensures that if no token, redirect back to front
+// Global navigation guard
 router.beforeEach((to, from, next) => {
-  const token = localStorage.getItem('token')
-  
-  if (to.meta.requiresAuth && !token) {
+  const { token } = useAuth() // use the reactive composable
+  const hasToken = !!token.value
+
+  if (to.meta.requiresAuth && !hasToken) {
     next('/login')
-  } else if (to.meta.requiresGuest && token) {
+  } else if (to.meta.requiresGuest && hasToken) {
     next('/consultations')
   } else {
     next()
