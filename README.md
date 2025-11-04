@@ -3,10 +3,11 @@
 ### Capabilities
 
 - Allows JWT authenticated login of existing accounts and registration of new accounts, with consultation list tied to each account
+- Accepts new consultation notes using forms
+- Enables search of diagnosis codes by both the code and the description of the disease
 - Stores past consultation notes and displays it in a list, persistent across logins (due to database)
-- Accepts new consultation notes
 
-See a short demonstration below.
+See a short demonstration below:
 
 [![ClinicCare Demo](docs/ClinicCare_thumbnail.png)](https://youtu.be/fUeAqqO9jr0)
 
@@ -16,9 +17,7 @@ Here,
 2. Register a new account and then log into that before logging out
 3. Re-login to John Enak's account
 
-As demonstrated, consultation lists are tied to each account.
-
-More details below.
+As demonstrated, consultation lists are tied to each account. Error validation is implemented but not demonstrated to keep video length short; see this README.md for details and screenshots.
 
 ### Pre-Requisites
 
