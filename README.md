@@ -8,7 +8,7 @@
 
 See a short demonstration below.
 
-[![ClinicCare Demo](ClinicCare_thumbnail.png)](https://youtu.be/fUeAqqO9jr0)
+[![ClinicCare Demo](docs/ClinicCare_thumbnail.png)](https://youtu.be/fUeAqqO9jr0)
 
 Here,
 
@@ -230,3 +230,13 @@ When logged in, it shows the doctor’s name and logout options in the navbar. W
 ### JWT Authentication
 
 The JWT token is provided when the doctor logs in; it is only cleared when the doctor logs out. This means that if the doctor closes the web application by accident, they could return to the application and not have to redo the login due to the token. This is how most web applications I've seen do it to reduce the amount of logins the end user needs to do.
+
+### Communicating Errors
+
+The frontend will notify users of errors in their field inputs by leveraging Pydantic and basic error checking. Some examples are attached below.
+
+When the login account details are wrong:
+![Invalid Email or Password](docs/invalid_error.png)
+
+When the email provided for registration is invalid:
+![Invalid Email Format](docs/email_error.png)
