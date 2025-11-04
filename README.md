@@ -222,7 +222,7 @@ I used Vue with scoped style CSS as standard for Vue development.
 
 The UI inside the app is designed to be clean and not-confusing for doctors, especially senior ones that may be less familiar with technology. That is why no colorful backgrounds or animations are implemented inside, and the `New Consultation` button is both on the navbar and the past consultations list.
 
-The navigation bar and background animations are reactive based on the user’s authentication state.
+The navigation bar and background animations are reactive based on the user’s authentication state. The animation was made with reference to https://codepen.io/chris22smith/pen/RZogMa.
 
 When logged in, it shows the doctor’s name and logout options in the navbar. When logged out, the app displays animated backgrounds for `/login` and `/register`.
 
