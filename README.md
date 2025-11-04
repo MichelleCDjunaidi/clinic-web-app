@@ -30,11 +30,21 @@ The first command will:
 4. Start all three containers
 5. Initialize the database with 100 ICD-10 codes and a doctor account
 
-Note that I turned on volumes, so that data would persist across runs. If you wish to stop and remove all data, run the following command:
+Then, the Web application is interactable at
+
+```
+http://localhost
+```
+
+Where it will promptly redirect you to `/login` if you aren't logged in, and `/consultations` if you are.
+
+Note that I turned on volumes, so that data would persist across runs just like the usual databases.
+
+If you wish to stop and remove all data, run the following command:
 
 ```bash
 # to stop services and remove all volumes
-docker-compose up -v
+docker-compose down -v
 ```
 
 In reality, the best practice is to keep env secrets on local, but to facilitate the evaluation of this project I have shared it here (since it is credentials in a containerized app).
@@ -51,6 +61,10 @@ The backend implements FastAPI using input validation with Pydantic. SQLAlchemy 
 
 ### All Available FastAPI Endpoints
 
+All of this is also accessible at `http://localhost:8000/` in your local web browser.
+
+See `http://localhost:8000/docs` for fastAPI documentation and schema requirements, and also if you want to test it out. Note that you need to get the JWT token from `/login` and put it in the `Authorize` button on the top right to try out the authenticated endpoints.
+
 | Method | Endpoint                   | Auth Required | Description            |
 | ------ | -------------------------- | ------------- | ---------------------- |
 | GET    | `/`                        | No            | API info               |
@@ -61,8 +75,6 @@ The backend implements FastAPI using input validation with Pydantic. SQLAlchemy 
 | GET    | `/diagnosis?search=<term>` | Yes           | Search diagnosis codes |
 | POST   | `/consultation`            | Yes           | Create consultation    |
 | GET    | `/consultation`            | Yes           | List consultations     |
-
-See `/docs` for fastAPI documentation and schema requirements.
 
 ### Pydantic Validation
 
@@ -194,3 +206,7 @@ The UI inside the app is designed to be clean and not-confusing for doctors, esp
 The navigation bar and background animations are reactive based on the user’s authentication state.
 
 When logged in, it shows the doctor’s name and logout options in the navbar. When logged out, the app displays animated backgrounds for `/login` and `/register`.
+
+### JWT Authentication
+
+The JWT token is provided when the doctor logs in; it is only cleared when the doctor logs out. This means that if the doctor closes the web application by accident, they could return to the application and not have to redo the login due to the token. This is how most web applications I've seen do it to reduce the amount of logins the end user needs to do.
