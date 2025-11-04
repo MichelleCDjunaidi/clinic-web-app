@@ -1,4 +1,14 @@
-# clinic-web-app
+# ClinicCare Records System
+
+### Capabilities
+
+- Allows login of existing accounts and registration of new accounts, with consultation list tied to each account
+- Stores past consultation notes and displays it in a list, persistent across logins (due to database)
+- Accepts new consultation notes
+
+See demonstration below.
+
+[![ClinicCare Demo][///insert placeholder image here]](https://youtu.be/fUeAqqO9jr0)
 
 ### Pre-Requisites
 
@@ -191,14 +201,6 @@ Say, for example, patient John Doe visits on Nov 2, 2024, and was seen by Dr. Ta
 ## Frontend
 
 I used Vue with scoped style CSS as standard for Vue development.
-
-### Capabilities
-
-- Allows login of existing accounts and registration of new accounts, with consultation list tied to each account
-- Stores past consultation notes and displays it in a list, persistent across logins (due to database)
-- Accepts new consultation notes
-
-See demonstration below.
 
 ### Key Features
 
