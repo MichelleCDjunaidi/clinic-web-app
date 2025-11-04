@@ -2,7 +2,7 @@
 
 ### Capabilities
 
-- Allows authenticated login of existing accounts and registration of new accounts, with consultation list tied to each account
+- Allows JWT authenticated login of existing accounts and registration of new accounts, with consultation list tied to each account
 - Stores past consultation notes and displays it in a list, persistent across logins (due to database)
 - Accepts new consultation notes
 
@@ -12,7 +12,7 @@ See a short demonstration below.
 
 Here,
 
-1. We log into John Enak's account to create a new consultation note and then log out
+1. We log into John Enak's account to create a new consultation note with diagnoses codes and then log out
 2. Register a new account and then log into that before logging out
 3. Re-login to John Enak's account
 
@@ -27,7 +27,7 @@ More details below.
 
 ### Project Setup
 
-The project works without Docker. Nevertheless, to standardize setup for this project I decided to Dockerize the backend, the database, and the Vue frontend.
+The project works without Docker. Nevertheless, to simplify the amount of steps and to standardize setup for this project I decided to Dockerize the backend, the database, and the Vue frontend. In other words, all the setup such as npm install and pip install requirements.txt are already scripted in the Dockerfiles and will be run by Docker.
 
 ```bash
 #assuming you are at the root of the project
@@ -35,11 +35,8 @@ The project works without Docker. Nevertheless, to standardize setup for this pr
 # Build and start all services
 docker-compose up --build
 
-# if already built
+# if already built previously
 docker-compose up
-
-# to stop services
-docker-compose down
 ```
 
 The first command will:
@@ -65,15 +62,18 @@ If you wish to stop and remove all data, run the following command:
 ```bash
 # to stop services and remove all volumes
 docker-compose down -v
-```
 
-In reality, the best practice is to keep env secrets on local, but to facilitate the evaluation of this project I have shared it here (since it is credentials in a containerized app).
+# to simply stop services without touching the data
+docker-compose down
+```
 
 To interact with the database in the Dockerized application using psql, run the following command:
 
 ```bash
 docker exec -it clinic_db psql -U postgres -d clinic_db
 ```
+
+Note that JWT requires a secret key. In reality, the best practice is to keep env secrets on local, but to facilitate the evaluation of this project I have shared it here (since it is credentials in a containerized app).
 
 ## Backend
 

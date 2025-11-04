@@ -87,7 +87,9 @@ export default {
       } catch (err) {
         console.error(err);
         error.value =
-          err.response?.data?.errors || "Registration failed. Please try again.";
+          (err.response?.data?.errors)
+          .map(e => e.replace(/^data\s*->\s*/i, '').replace(/^body\s*->\s*/i, ''))
+          .join(', ') || err.response?.data?.detail || "Registration failed. Please try again.";
       } finally {
         loading.value = false;
       }
