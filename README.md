@@ -2,13 +2,23 @@
 
 ### Capabilities
 
-- Allows login of existing accounts and registration of new accounts, with consultation list tied to each account
+- Allows authenticated login of existing accounts and registration of new accounts, with consultation list tied to each account
 - Stores past consultation notes and displays it in a list, persistent across logins (due to database)
 - Accepts new consultation notes
 
-See demonstration below.
+See a short demonstration below.
 
-[![ClinicCare Demo][///insert placeholder image here]](https://youtu.be/fUeAqqO9jr0)
+[![ClinicCare Demo](ClinicCare_thumbnail.png)](https://youtu.be/fUeAqqO9jr0)
+
+Here,
+
+1. We log into John Enak's account to create a new consultation note and then log out
+2. Register a new account and then log into that before logging out
+3. Re-login to John Enak's account
+
+As demonstrated, consultation lists are tied to each account.
+
+More details below.
 
 ### Pre-Requisites
 
