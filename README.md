@@ -229,9 +229,9 @@ When logged in, it shows the doctor’s name and logout options in the navbar. W
 
 ### JWT Authentication
 
-The JWT token is provided when the doctor logs in; it is only cleared when the doctor logs out. This means that if the doctor closes the web application by accident, they could return to the application and not have to redo the login due to the token. This is how most web applications I've seen do it to reduce the amount of logins the end user needs to do.
+The JWT token is provided when the doctor logs in; it is cleared when the doctor logs out or when it expires. This means that if the doctor closes the web application by accident and the token has not expired, they could return to the application and not have to redo the login. This is how most web applications I've seen do it to reduce the amount of logins the end user needs to do.
 
-### Communicating Errors
+### Communicating Errors to End Users
 
 The frontend will notify users of errors in their field inputs by leveraging Pydantic and basic error checking. Some examples are attached below.
 
@@ -240,3 +240,5 @@ When the login account details are wrong:
 
 When the email provided for registration is invalid:
 ![Invalid Email Format](docs/email_error.png)
+
+There are more validation e.g. for the password length, but to keep this documentation short I won't include more screenshots.
