@@ -192,11 +192,19 @@ Say, for example, patient John Doe visits on Nov 2, 2024, and was seen by Dr. Ta
 
 I used Vue with scoped style CSS as standard for Vue development.
 
+### Capabilities
+
+- Allows login of existing accounts and registration of new accounts, with consultation list tied to each account
+- Stores past consultation notes and displays it in a list, persistent across logins (due to database)
+- Accepts new consultation notes
+
+See demonstration below.
+
 ### Key Features
 
 - Single Page Application (SPA): The app loads once via index.html, and navigation between routes happens dynamically using Vue Router, without full page reloads
 - Authentication state and user info are handled client-side via a composable (useAuth.js)
-- All requests to the backend are handled via Axios.
+- All requests to the backend are handled via Axios
 - The router checks for authentication before allowing access to secured pages like `/consultation`. Unauthenticated users are redirected to `/login`
 
 ### UI Design
