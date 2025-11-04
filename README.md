@@ -2,19 +2,27 @@
 
 ### Pre-Requisites
 
-- Have Docker installed
+- Have Docker installed and running
 - Have a web browser to see the frontend
 
-### Build and Start All Containers
+### Project Setup
 
-To standardize setup for this project (so you can install all the libraries without issue e.g. Pydantic has some issues installing in Windows) I decided to Dockerize the backend, the database, and the Vue frontend.
+The project works without Docker. Nevertheless, to standardize setup for this project I decided to Dockerize the backend, the database, and the Vue frontend.
 
 ```bash
+#assuming you are at the root of the project
+
 # Build and start all services
 docker-compose up --build
+
+# if already built
+docker-compose up
+
+# to stop services
+docker-compose down
 ```
 
-This single command will:
+The first command will:
 
 1. Build the PostgreSQL database
 2. Build the FastAPI backend
@@ -22,11 +30,24 @@ This single command will:
 4. Start all three containers
 5. Initialize the database with 100 ICD-10 codes and a doctor account
 
-See `/docs` for fastAPI documentation and schema requirements.
+Note that I turned on volumes, so that data would persist across runs. If you wish to stop and remove all data, run the following command:
+
+```bash
+# to stop services and remove all volumes
+docker-compose up -v
+```
+
+In reality, the best practice is to keep env secrets on local, but to facilitate the evaluation of this project I have shared it here (since it is credentials in a containerized app).
+
+To interact with the database in the Dockerized application using psql, run the following command:
+
+```bash
+docker exec -it clinic_db psql -U postgres -d clinic_db
+```
 
 ## Backend
 
-The backend implements FastAPI using input validation with Pydantic. Authentication uses JWT.
+The backend implements FastAPI using input validation with Pydantic. SQLAlchemy is used specifically for communicating with the database (enables switching of database types, if necessary, as SQLAlchemy is not tied to the language of the backend). Authentication uses JWT.
 
 ### All Available FastAPI Endpoints
 
@@ -40,6 +61,8 @@ The backend implements FastAPI using input validation with Pydantic. Authenticat
 | GET    | `/diagnosis?search=<term>` | Yes           | Search diagnosis codes |
 | POST   | `/consultation`            | Yes           | Create consultation    |
 | GET    | `/consultation`            | Yes           | List consultations     |
+
+See `/docs` for fastAPI documentation and schema requirements.
 
 ### Pydantic Validation
 
@@ -156,3 +179,18 @@ Say, for example, patient John Doe visits on Nov 2, 2024, and was seen by Dr. Ta
 ## Frontend
 
 I used Vue with scoped style CSS as standard for Vue development.
+
+### Key Features
+
+- Single Page Application (SPA): The app loads once via index.html, and navigation between routes happens dynamically using Vue Router, without full page reloads
+- Authentication state and user info are handled client-side via a composable (useAuth.js)
+- All requests to the backend are handled via Axios.
+- The router checks for authentication before allowing access to secured pages like `/consultation`. Unauthenticated users are redirected to `/login`
+
+### UI Design
+
+The UI inside the app is designed to be clean and not-confusing for doctors, especially senior ones that may be less familiar with technology. That is why no colorful backgrounds or animations are implemented inside, and the `New Consultation` button is both on the navbar and the past consultations list.
+
+The navigation bar and background animations are reactive based on the user’s authentication state.
+
+When logged in, it shows the doctor’s name and logout options in the navbar. When logged out, the app displays animated backgrounds for `/login` and `/register`.
