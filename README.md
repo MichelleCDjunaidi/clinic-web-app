@@ -50,7 +50,7 @@ The first command will:
 Then, the Web application is interactable at
 
 ```
-http://localhost
+http://localhost:80/
 ```
 
 Where it will promptly redirect you to `/login` if you aren't logged in, and `/consultations` if you are.
