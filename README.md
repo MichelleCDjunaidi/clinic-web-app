@@ -23,6 +23,7 @@ As demonstrated, consultation lists are tied to each account. Error validation i
 
 - Have Docker installed and running
 - Have a web browser to see the frontend
+- Have the project cloned (run `git clone https://github.com/MichelleCDjunaidi/clinic-web-app.git`)
 
 ### Project Setup
 
